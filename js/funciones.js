@@ -7,9 +7,9 @@ const guardarProductosCarrito = (productos) => {
   }
   
   const verProducto = (id) => {
-    const productos = buscarProducto(id);
+    const producto = buscarProducto(id);
     localStorage.setItem("producto", JSON.stringify(producto));
-    location.href = "descripcion.html";
+    location.href = "seleccionados.html";
   }
   
   const cargarProducto = () => {
@@ -23,11 +23,12 @@ const guardarProductosCarrito = (productos) => {
   }
   
   const agregarAlCarrito = (id) => {
+    const productos = cargarProductosLS();
     const productos_carrito = cargarProductosCarrito();
   
     if (estaEnElCarrito(id)) {
       let position = productos_carrito.findIndex(item => item.id === id);
-      productos_carrito[position].quantity += 1;
+      productos_carrito[position].cantidad += 1;
     }
     else {
       const producto = productos.find(item => item.id === id);
@@ -56,19 +57,19 @@ const guardarProductosCarrito = (productos) => {
   const totalCarrito = () => {
     const productos_carrito = cargarProductosCarrito();
   
-    return productos_carrito.reduce((total, item) => total += item.quantity, 0);
+    return productos_carrito.reduce((total, item) => total += item.cantidad, 0);
   }
   
   const subtotal = () => {
     const productos_carrito = cargarProductosCarrito();
   
-    return productos_carrito.reduce((total, item) => total += item.quantity * item.precio, 0);
+    return productos_carrito.reduce((total, item) => total += item.cantidad * item.precio, 0);
   }
   
   const sumaCarrito = () => {
     const productos_carrito = cargarProductosCarrito();
   
-    return productos_carrito.reduce((total, item) => total += item.quantity * item.precio + item.quantity * item.precio, 0);
+    return productos_carrito.reduce((total, item) => total += item.cantidad * item.precio, 0);
   }
   
   const renderBotonCarrito = () => {
@@ -82,7 +83,7 @@ const guardarProductosCarrito = (productos) => {
   const agregarItemProducto = (id) => {
     const productos_carrito = cargarProductosCarrito();
     let position = productos_carrito.findIndex(item => item.id === id);
-    productos_carrito[position].quantity += 1;
+    productos_carrito[position].cantidad += 1;
     guardarProductosCarrito(productos_carrito);
     renderProductosCarrito();
     renderBotonCarrito();
@@ -91,9 +92,9 @@ const guardarProductosCarrito = (productos) => {
   const eliminarItemProducto = (id) => {
     const productos_carrito = cargarProductosCarrito();
     let position = productos_carrito.findIndex(item => item.id === id);
-    productos_carrito[position].quantity -= 1;
+    productos_carrito[position].cantidad -= 1;
   
-    if (productos_carrito[position].quantity == 0) {
+    if (productos_carrito[position].cantidad == 0) {
       eliminarItemProducto(id);
     }
     else {
@@ -108,4 +109,15 @@ const guardarProductosCarrito = (productos) => {
   }
   
   
-  
+  function mostrarAlerta() {
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: 'Muchas gracias por tu compra!',
+      text: 'El pedido ha sido enviado',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+  document.getElementById("terminar_pedido").addEventListener("click", mostrarAlerta);
+

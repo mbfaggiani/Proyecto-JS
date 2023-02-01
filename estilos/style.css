@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
 *{
     padding: 0;
@@ -10,24 +10,42 @@ html{
 }
 
 body{
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Kanit', sans-serif;
     text-align: center;
 }
 
 .imgLogo{
-    width: 200px;
+    width: 250px;
     height: 80px;
     margin: 50px;
 }
 
 footer{
+    font-family: 'Kanit', sans-serif;
     margin: 50px;
+    text-align: center;
 }
 
 header, footer{
-    background-color: #E6CCB2;
+    background-color: white;
 }
 
 .dropdown{
     margin: 50px;
+}
+
+main{
+    background-color: white(225, 221, 221);
+}
+
+#colorTexto{
+    color: rgb(97, 187, 190);
+}
+
+header, main{
+    font-family: 'Kanit', sans-serif;
+}
+
+#terminar_pedido{
+    background-color: rgb(97, 187, 190);
 }
